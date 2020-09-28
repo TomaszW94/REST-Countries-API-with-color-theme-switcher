@@ -17,12 +17,9 @@ async function getcountries() {
         const res = await fetch(url);
         const countries = await res.json();
         listCountries(countries);
-        console.log(countries);
     } catch (error) {
         console.log(error);
     }
-    const filterRegions = filterBtn.querySelectorAll('li');
-    console.log(filterRegions);
 }
 
 
@@ -45,9 +42,7 @@ function listCountries(countries) {
 
         countryCard.addEventListener('click', () => {
             moreInformation(country);
-        })
-
-
+        });
 
     });
 
@@ -55,6 +50,7 @@ function listCountries(countries) {
         elemCountires.style.display = "none";
         searchBar.style.display = "none";
         filter.style.display = "none";
+        
         document.querySelector('.more-information').innerHTML = `<button class="more-information__btn-back"><span
         class="fas fa-arrow-left more-information__btn-back-icon"></span>Back</button>`;
         const countryCard = document.createElement('div');
@@ -88,11 +84,9 @@ function listCountries(countries) {
         country.borders.forEach(border => {
             let span = document.createElement('span');
             span.className = "more-information__border";
-            console.log(border.length);
             span.textContent = `${border}`;
             document.querySelector('.more-information__borders').appendChild(span);
         });
-
 
 
         document.querySelector('.more-information__btn-back').addEventListener('click', () => {
@@ -112,7 +106,6 @@ filterBtn.addEventListener('click', () => {
 
 
 searchInput.addEventListener('input', (e) => {
-
     document.querySelector('.more-information').innerHTML = "";
 
     let searchValue = e.target.value;
