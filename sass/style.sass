@@ -1,0 +1,350 @@
+//Colors
+//(Dark Mode Elements)
+$darkBlue : hsl(209, 23%, 22%)
+//(Dark Mode Background)
+$veryDarkBlue: hsl(207, 26%, 17%)
+//(Light Mode Text)
+$verydarkblueLight: hsl(200, 15%, 8%)
+//(Light Mode Input)
+$darkGray: hsl(0, 0%, 52%)
+//(Light Mode Background)
+$veryLightGray: hsl(0, 0%, 98%)
+//(Dark Mode Text & Light Mode Elements)
+$white: hsl(0, 0%, 100%)
+       
+    
+*,*::before,*::after
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+body
+    font-size: 14px
+    font-family: 'Nunito Sans', sans-serif
+    line-height: 1.5
+    background-color: $veryLightGray
+    color: $verydarkblueLight
+    transition: background-color .5s ease
+    
+    
+body.dark
+    background-color: $veryDarkBlue
+    color: $white
+
+span
+    font-weight: 400
+
+img
+    width: 100%
+    height: auto
+
+.container
+    display: flex
+    align-items: center
+    justify-content: space-around
+    width: 100%
+    max-width: 1440px
+    margin: 0 auto
+    position: relative
+    @media (min-width: 1440px)
+        justify-content: space-between
+        width: 90%
+
+.btn,.input
+    font-family: 'Nunito Sans', sans-serif
+
+.header
+    display: flex
+    align-items: center
+    min-height: 80px
+    justify-content: space-around
+    box-shadow: 0 -10px 16px black
+    margin-bottom: 20px   
+    &__title
+        font-size: 1.1rem
+        @media screen and (min-width: 533px)
+            font-size: 1.2rem
+    &__btn-darkmode
+        border-color: transparent
+        background-color: transparent
+        font-weight: 700
+        padding: 0.8rem
+        font-size: 0.7rem
+        cursor: pointer
+        @media screen and (min-width: 533px)
+            font-size: 0.8rem
+        @media screen and (min-width: 768px)
+            font-size: 0.9rem
+    body.dark &__btn-darkmode
+        color: $white
+    &__btn-icon-moon-dark,&__btn-icon-moon-light
+        margin-right: 5px
+        transform: rotate(-20deg)
+    &__btn-icon-moon-dark
+        display: none
+    body.dark &__btn-icon-moon-dark
+        display: inline-block
+        color: $white
+    body.dark &__btn-icon-moon-light
+        display: none
+        color: $white
+
+.search-bar
+    position: relative
+    display: flex
+    align-items: center
+    width: 90%
+    &__input
+        padding-left: 40px
+        min-height: 35px
+        border: none
+        min-width: 250px
+        width: 90%
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02),0 1px 10px rgba(0,0,0,0.10)
+        @media screen and (min-width: 533px)
+            width: 70%
+        @media screen and (min-width: 768px)
+            width: 65%
+        @media( min-width:1440px )
+            width: 80%
+            height: 40px
+
+    body.dark &__input
+        background-color: $veryDarkBlue
+        color: $white
+        box-shadow: 0 1px 3px rgba(0,0,0,0.10),0 1px 10px rgba(0,0,0,0.40)
+    &__icon-search
+        position: absolute
+        left: 10px
+        z-index: 1
+        font-size: 1rem
+        opacity: 0.3
+    body.dark &__icon-search
+        opacity: 1
+
+.filter
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 90%
+    margin: 20px auto
+    position: relative
+    &__btn
+        display: flex
+        cursor: pointer
+        min-width: 190px
+        width: 200px
+        align-items: center
+        padding: 8.5px
+        padding-right: 3.5rem
+        padding-left: 1.3rem
+        position: relative
+        border: none
+        background-color: $white
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02),0 1px 10px rgba(0,0,0,0.10)
+        @media (min-width: 1440px)
+            margin-left: auto
+            height: 40px
+    body.dark &__btn
+        background-color: $veryDarkBlue
+        color: $white
+        box-shadow: 0 1px 3px rgba(0,0,0,0.10),0 1px 10px rgba(0,0,0,0.40)
+    &__icon-down
+        position: absolute
+        right: 1rem
+    &__list
+        display: none
+        list-style: none
+        color: black
+        background-color: $white
+        min-width: 190px
+        width: 200px
+        flex-direction: column
+        padding: 1rem
+        padding-left: 1.5rem
+        margin-top: 10px
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02),0 1px 10px rgba(0,0,0,0.10)
+        position: absolute
+        top: 80%
+        z-index: 1
+        left: 5%
+        @media (min-width: 1440px)
+            margin-left: auto
+            right: 0
+            left: 0
+        &--active
+            display: flex
+    body.dark &__list
+        background-color: $veryDarkBlue
+        color: $white
+        box-shadow: 0 1px 3px rgba(0,0,0,0.10),0 1px 10px rgba(0,0,0,0.40)
+    &__item
+        padding: 5px 0
+        cursor: pointer
+
+.flex-direction
+    flex-direction: column
+    @media(min-width: 1440px)
+        flex-direction: row
+
+.countries
+    display: grid
+    width: 70%
+    margin-top: 20px
+    grid-template-columns: repeat(1,auto)
+    grid-gap: 50px
+    @media screen and (min-width: 533px)
+        margin: 0 0
+        grid-template-columns: repeat(2,auto)
+        width: 90%
+        grid-gap: 30px
+    @media (min-width: 1024px)
+        grid-template-columns: repeat(3,auto)
+        margin-top: 30px
+    @media (min-width: 1440px)
+        display: grid
+        grid-template-columns: repeat(4,auto)
+        width: 100%
+        grid-gap: 80px
+        row-gap: 40px
+    &__loading
+        position: absolute
+        top: 40%
+        left: 50%
+        transform: translateX(-50%)
+.country
+    padding-bottom: 30px
+    box-shadow: 0 1px 3px rgba(0,0,0,0.20),0 1px 10px rgba(0,0,0,0.16)
+    max-width: 300px
+    border-radius: 8px
+    overflow: hidden
+    @media screen and (min-width: 533px)
+        flex-basis: 40%
+        margin: 10px 0
+        justify-content: space-around
+        padding-bottom: 20px
+    @media (min-width: 1440px)
+        height: 300px
+        cursor: pointer
+        transition: transform .3s ease
+        &:hover
+            transform: scale(1.1)
+    &__flag
+        display: flex
+    &__flag-img
+        width: 100%
+        max-height: 150px
+        @media (min-width: 1440px)
+            height: 300px
+    &__info
+        padding-left: 10px
+    &__name
+        margin: 10px 0
+        font-weight: 800
+        font-size: 1.2rem
+        @media (min-width: 1440px)
+            font-size: 1.1rem
+            margin-top: 20px
+    &__population,&__region,&__capital
+        font-weight: 600
+        margin: 3px 0
+        font-size: 1rem
+        @media (min-width: 1440px)
+            margin: 5px 0
+
+.more-information
+    width: 90%
+    margin: 0 auto
+    justify-content: space-around
+    @media (min-width: 1440px)
+        margin: 0 0
+    p
+        font-weight: 700
+        margin: 5px 0
+    &__btn-back
+        display: flex
+        align-items: center
+        justify-content: space-evenly
+        cursor: pointer
+        width: 33%
+        padding: 0.6rem
+        margin: 10px 0 
+        border: none
+        background-color: $white
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02),0 1px 10px rgba(0,0,0,0.10)
+        @media screen and (min-width: 533px)
+            width: 20%
+            margin-bottom: 30px
+        @media screen and (min-width: 768px)
+            margin-bottom: 30px
+            width: 18%
+        @media screen and (min-width: 1024px)
+            width: 15%
+        @media (min-width: 1440px)
+            width: 10%
+            padding: 0.8rem
+    body.dark &__btn-back
+        background-color: $veryDarkBlue
+        color: $white
+        box-shadow: 0 1px 3px rgba(0,0,0,0.10),0 1px 10px rgba(0,0,0,0.40)
+    &__btn-back-icon
+        font-size: 1rem 
+    &__country
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        @media screen and (min-width: 533px)
+            flex-direction: row
+    &__text-container
+        @media screen and (min-width: 768px)
+            display: flex
+            flex-wrap: wrap
+    &__flag
+        @media screen and (min-width: 533px)
+            margin-right: 30px
+        @media screen and (min-width: 1024px)
+            margin-right: 100px
+    &__flag-img
+        margin: 18px 0
+        width: 100%
+        @media screen and (min-width: 533px)
+            margin: 0 0
+            width: 250px
+            height: 150px
+        @media (min-width: 1440px)
+            width: 750px
+            height: 500px
+    &__name
+        margin: 15px 0
+        font-size: 1.4rem
+        flex-basis: 100%
+        @media screen and (min-width: 533px)
+            margin: 0
+            margin-bottom: 20px
+    &__language::before
+        content: ","
+        display: inline-block
+    &__basic
+        @media screen and (min-width: 768px)
+            flex-basis: 50%
+            margin-bottom: 30px
+    &__detailed
+        margin: 30px 0
+        @media screen and (min-width: 768px)
+            margin: 0
+            flex-basis: 50%
+    &__borders
+        display: flex
+        flex-wrap: wrap
+    &__border
+        display: flex
+        justify-content: center
+        padding: 0.1rem 1rem
+        margin: 10px 10px 10px 0
+        max-width: 50px
+        box-shadow: 0 1px 3px rgba(0,0,0,0.20),0 1px 10px rgba(0,0,0,0.16)
+    &__border-title
+        @media screen and (min-width: 768px)
+            flex-basis: 100%
+       
+
