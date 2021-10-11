@@ -36,7 +36,7 @@ function listCountries(countries) {
         <h3 class="country__name">${country.name}</h3>
         <p class="country__population">Population: <span>${country.population}</span></p>
         <p class="country__region">Region: <span>${country.region}</span></p>
-        <p class="country__capital">Capital: <span>${country.capital}</span></p>
+        <p class="country__capital">Capital: <span>${country.capital === undefined ? "none" : country.capital}</span></p>
         </div>`;
 
         elemCountires.appendChild(countryCard);
@@ -90,6 +90,7 @@ function listCountries(countries) {
         <div class="more-information__borders">
         </div>
         </div>`
+        
         document.querySelector('.more-information').appendChild(countryCard);
 
     // Country borders

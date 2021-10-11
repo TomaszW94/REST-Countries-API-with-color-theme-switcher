@@ -371,7 +371,6 @@ body.dark .filter__list {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 10px rgba(0, 0, 0, 0.16);
   max-width: 300px;
   border-radius: 8px;
-  overflow: hidden;
 }
 
 @media screen and (min-width: 533px) {
@@ -387,7 +386,6 @@ body.dark .filter__list {
 
 @media (min-width: 1440px) {
   .country {
-    height: 300px;
     cursor: pointer;
     -webkit-transition: -webkit-transform .3s ease;
     transition: -webkit-transform .3s ease;
