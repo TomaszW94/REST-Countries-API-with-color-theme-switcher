@@ -29,6 +29,14 @@ img {
   height: auto;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:link, a:visited {
+  color: #111517;
+}
+
 .container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -55,6 +63,10 @@ img {
 
 .btn, .input {
   font-family: 'Nunito Sans', sans-serif;
+}
+
+.link {
+  text-decoration: none;
 }
 
 .header {
@@ -518,9 +530,9 @@ body.dark .more-information__btn-back {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 @media screen and (min-width: 533px) {

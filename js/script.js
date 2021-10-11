@@ -12,7 +12,7 @@ const darkmodeBtn = document.querySelector('.header__btn-darkmode');
 getcountries();
 
 async function getcountries() {
-    let url = 'https://restcountries.eu/rest/v2/all';
+    let url = 'https://restcountries.com/v2/all';
     try {
         const res = await fetch(url);
         const countries = await res.json();
@@ -22,14 +22,15 @@ async function getcountries() {
     }
 }
 
-
+//list of countries
 function listCountries(countries) {
     elemCountires.innerHTML = '';
     countries.forEach(country => {
         const countryCard = document.createElement('div');
         countryCard.classList.add('country');
+
         countryCard.innerHTML = `<div class="country__flag">
-        <img class="country__flag-img" src="${country.flag}" alt="flag">
+        <img class="country__flag-img" src="${country.flags.png}" alt="flag">
         </div>
         <div class="country__info">
         <h3 class="country__name">${country.name}</h3>
@@ -46,31 +47,42 @@ function listCountries(countries) {
 
     });
 
+    //more info about the country
     function moreInformation(country) {
         elemCountires.style.display = "none";
         searchBar.style.display = "none";
         filter.style.display = "none";
-        
-        document.querySelector('.more-information').innerHTML = `<button class="more-information__btn-back"><span
+
+        document.querySelector('.more-information').innerHTML = `
+        <button class="link more-information__btn-back"><span
         class="fas fa-arrow-left more-information__btn-back-icon"></span>Back</button>`;
         const countryCard = document.createElement('div');
         countryCard.classList.add('more-information__country');
         countryCard.innerHTML = `
         <div class="more-information__flag animate__animated animate__fadeIn">
-        <img class="more-information__flag-img" src="${country.flag}" alt="flag">
+        <img class="more-information__flag-img" src="${country.flags.png}" alt="flag">
         </div>
         <div class="more-information__text-container">
-        <h3 class="more-information__name">${country.name}</h3>
+        <h3 class="more-information__name">
+        ${country.name === undefined ? "none" : country.name}</h3>
         <div class="more-information__basic">
-        <p class="more-information__native-name">Native Name: <span>${country.nativeName}</span></p>
-        <p class="more-information__population">Population: <span>${country.population}</span></p>
-        <p class="more-information__region">Region: <span>${country.region}</span></p>
-        <p class="more-information__sub-region">Sub Region: <span>${country.subregion}</span></p>
-        <p class="more-information__capital">Capital: <span>${country.capital}</span></p>
+        <p class="more-information__native-name">Native Name: <span>
+        ${country.nativeName === undefined ? "none" : country.nativeName}</span></p>
+        <p class="more-information__population">Population: <span>
+        ${country.population  === undefined ? "none" : country.population}</span></p>
+        <p class="more-information__region">Region: <span>
+        ${country.region === undefined ? "none" : country.region}</span></p>
+        <p class="more-information__sub-region">Sub Region: <span>
+        ${country.subregion === undefined ? "none" : country.subregion}</span></p>
+        <p class="more-information__capital">Capital: <span>
+        ${country.capital === undefined ? "none" : country.capital}</span></p>
         </div>
         <div class="more-information__detailed">
-        <p class="more-information__top-level-domain">Top Level Domain: <span>${country.topLevelDomain}</span></p>
-        <p class="more-information__curriences">Currencies: <span>${country.currencies[0].name}</span></p>
+        <p class="more-information__top-level-domain">Top Level Domain: <span>
+        ${country.topLevelDomain  === undefined ? "none" : country.topLevelDomain}</span></p>
+        <p class="more-information__curriences">Currencies: <span>
+        ${country.currencies === undefined ? "none" : country.currencies[0].name}
+        </span></p>
         <p class="more-information__languages">Languages: <span class="more-information__languages">
         ${country.languages.map(language => language.name)}</span></p>
         </div>
@@ -80,15 +92,18 @@ function listCountries(countries) {
         </div>`
         document.querySelector('.more-information').appendChild(countryCard);
 
-
+    // Country borders
+        if(country.borders){
+            console.log(country.borders);
         country.borders.forEach(border => {
             let span = document.createElement('span');
             span.className = "more-information__border";
             span.textContent = `${border}`;
             document.querySelector('.more-information__borders').appendChild(span);
         });
+    }
 
-
+        // btn back
         document.querySelector('.more-information__btn-back').addEventListener('click', () => {
             elemCountires.style.display = "grid";
             searchBar.style.display = "flex";
@@ -100,21 +115,36 @@ function listCountries(countries) {
 
 };
 
-filterBtn.addEventListener('click', () => {
+// Filter btn
+filterBtn.addEventListener('click', (e) => {
     document.querySelector('.filter__list').classList.toggle('filter__list--active');
+
+    filterRegions.forEach(filter => {
+        filter.addEventListener('click', (e) => {
+            let valueFilter = filter.innerText;
+            let regionsCountries = document.querySelectorAll('.country__region > span');
+            regionsCountries.forEach(regionCountry => {
+                if (regionCountry.innerText.includes(valueFilter) || valueFilter.includes("All")) {
+                    regionCountry.parentElement.parentElement.parentElement.style.display = "block";
+                } else {
+                    regionCountry.parentElement.parentElement.parentElement.style.display = "none";
+                }
+                document.querySelector('.filter__list').classList.remove('filter__list--active');
+            })
+        });
+    });
 })
 
-
+// search input
 searchInput.addEventListener('input', (e) => {
     document.querySelector('.more-information').innerHTML = "";
-
-    let searchValue = e.target.value;
-    let countryName = document.querySelectorAll('.country__name');
-    countryName.forEach(name => {
-        if (name.innerText.toLowerCase().includes(searchValue.toLowerCase())) {
-            name.parentElement.parentElement.style.display = "block";
+    const searchValue = e.target.value;
+    const countryNames = document.querySelectorAll('.country__name');
+    countryNames.forEach(countryName => {
+        if (countryName.innerText.toLowerCase().includes(searchValue.toLowerCase())) {
+            countryName.parentElement.parentElement.style.display = "block";
         } else {
-            name.parentElement.parentElement.style.display = "none";
+            countryName.parentElement.parentElement.style.display = "none";
         }
     });
 });
@@ -122,18 +152,3 @@ searchInput.addEventListener('input', (e) => {
 darkmodeBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
 })
-
-filterRegions.forEach(filter => {
-    filter.addEventListener('click', () => {
-        let valueFilter = filter.innerText;
-        let regionsCountries = document.querySelectorAll('.country__region > span');
-        regionsCountries.forEach(regionCountry => {
-            if (regionCountry.innerText.includes(valueFilter) || valueFilter.includes("All")) {
-                regionCountry.parentElement.parentElement.parentElement.style.display = "block";
-            } else {
-                regionCountry.parentElement.parentElement.parentElement.style.display = "none";
-            }
-            document.querySelector('.filter__list').classList.remove('filter__list--active');
-        })
-    });
-});
